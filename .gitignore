@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# iOS / Xcode (project is generated from ios/project.yml via XcodeGen)
+ios/**/*.xcodeproj
+ios/**/*.xcworkspace
+ios/build/
+ios/DerivedData/
+ios/.build/
+xcuserdata/
+*.xcuserstate
+
