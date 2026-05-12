@@ -13,6 +13,8 @@ final class AppViewModel {
     var metrics: [ProgressMetric]
     var hasCompletedOnboarding: Bool
     var selectedTab: AppTab = .today
+    var onboardingStep: OnboardingStep = .hero
+    var onboardingRouteVersion = 0
 
     init(seed: SuppsSeed, hasCompletedOnboarding: Bool = false) {
         self.firstName = seed.firstName
@@ -41,10 +43,36 @@ final class AppViewModel {
 
     func completeOnboarding() {
         hasCompletedOnboarding = true
+        onboardingStep = .hero
+    }
+
+    func open(_ route: AppRoute) {
+        switch route {
+        case .goal:
+            onboardingStep = .goal
+            onboardingRouteVersion += 1
+            hasCompletedOnboarding = false
+        case .tab(let tab):
+            selectedTab = tab
+            hasCompletedOnboarding = true
+        }
+    }
+
+    func open(_ url: URL) {
+        guard let route = AppRoute(url: url) else { return }
+        open(route)
     }
 
     func showPaywall() {
         selectedTab = .today
+    }
+
+    func showStackBuilder() {
+        selectedTab = .library
+    }
+
+    func showCheckIn() {
+        selectedTab = .coach
     }
 
     func toggleTask(_ task: DoseTask) {
@@ -53,4 +81,3 @@ final class AppViewModel {
         todayTasks[index].isDue = false
     }
 }
-

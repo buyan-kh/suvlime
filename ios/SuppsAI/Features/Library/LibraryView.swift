@@ -30,9 +30,12 @@ struct LibraryView: View {
                         Text("Hot this week")
                             .font(.boldBody(16))
                         Spacer()
-                        Text("See all")
-                            .font(.boldBody(12))
-                            .foregroundStyle(BoldPalette.ink.opacity(0.5))
+                        Button("See all") {
+                            viewModel.query = ""
+                            viewModel.select(nil)
+                        }
+                        .font(.boldBody(12))
+                        .foregroundStyle(BoldPalette.ink.opacity(0.5))
                     }
 
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -45,26 +48,68 @@ struct LibraryView: View {
                     }
 
                     HStack(spacing: 6) {
-                        ForEach(["All", "Peptides", "GLP-1", "Supps"], id: \.self) { chip in
-                            Text(chip)
-                                .font(.boldBody(12))
-                                .foregroundStyle(chip == "All" ? .white : BoldPalette.ink)
-                                .padding(.horizontal, 14)
-                                .padding(.vertical, 7)
-                                .background(chip == "All" ? BoldPalette.ink : .white, in: Capsule())
-                                .overlay(Capsule().stroke(BoldPalette.ink, lineWidth: 2.5))
+                        LibraryFilterChip(title: "All", isSelected: viewModel.selectedKind == nil) {
+                            viewModel.select(nil)
+                        }
+                        LibraryFilterChip(title: "Peptides", isSelected: viewModel.selectedKind == .peptide) {
+                            viewModel.select(.peptide)
+                        }
+                        LibraryFilterChip(title: "GLP-1", isSelected: viewModel.selectedKind == .glp1) {
+                            viewModel.select(.glp1)
+                        }
+                        LibraryFilterChip(title: "Supps", isSelected: viewModel.selectedKind == .supplement) {
+                            viewModel.select(.supplement)
                         }
                     }
 
                     VStack(spacing: 8) {
-                        ForEach(viewModel.compounds) { compound in
-                            CompoundRow(compound: compound)
+                        if viewModel.compounds.isEmpty {
+                            EmptyLibraryState()
+                        } else {
+                            ForEach(viewModel.compounds) { compound in
+                                CompoundRow(compound: compound)
+                            }
                         }
                     }
                 }
                 .padding(22)
                 .padding(.bottom, 20)
             }
+        }
+    }
+}
+
+private struct LibraryFilterChip: View {
+    var title: String
+    var isSelected: Bool
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .font(.boldBody(12))
+                .foregroundStyle(isSelected ? .white : BoldPalette.ink)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 7)
+                .background(isSelected ? BoldPalette.ink : .white, in: Capsule())
+                .overlay(Capsule().stroke(BoldPalette.ink, lineWidth: 2.5))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Filter \(title)")
+    }
+}
+
+private struct EmptyLibraryState: View {
+    var body: some View {
+        BoldCard(background: .white) {
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Nothing found.")
+                    .font(.boldBody(18))
+                Text("Try a different compound, goal, or category.")
+                    .font(.system(size: 13, weight: .bold, design: .rounded))
+                    .foregroundStyle(BoldPalette.ink.opacity(0.62))
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
@@ -119,7 +164,6 @@ private struct CompoundRow: View {
             }
             Spacer()
             EvidenceStars(count: compound.evidence)
-            Image(systemName: "chevron.right").font(.boldBody(13))
         }
         .padding(12)
         .background(.white)

@@ -16,12 +16,18 @@ struct StackView: View {
                                 .font(.boldDisplay(38))
                         }
                         Spacer()
-                        Image(systemName: "plus")
-                            .font(.boldDisplay(28))
-                            .foregroundStyle(.white)
-                            .frame(width: 48, height: 48)
-                            .background(BoldPalette.ink)
-                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        Button {
+                            viewModel.openStackBuilder()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.boldDisplay(28))
+                                .foregroundStyle(.white)
+                                .frame(width: 48, height: 48)
+                                .background(BoldPalette.ink)
+                                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Add supplement")
                     }
 
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -95,8 +101,7 @@ private struct StackItemCard: View {
                         .background(BoldPalette.ink)
                         .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                     Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.boldBody(14))
+                    EvidenceStars(count: item.evidence)
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 152, alignment: .leading)

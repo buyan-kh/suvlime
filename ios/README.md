@@ -78,6 +78,13 @@ Every major view has a SwiftUI preview:
 
 All previews use `MockSuppsData.seed`, so they render without accounts, network calls, or setup.
 
+## Deep Links
+
+The app registers the `suppsai` URL scheme for local routing:
+
+- `suppsai://goal` or `suppsai:///goal` reopens onboarding at the goal step.
+- `suppsai://today`, `suppsai://stack`, `suppsai://coach`, `suppsai://library`, and `suppsai://progress` open the main app on that tab.
+
 ## Tests
 
 ```bash
@@ -94,4 +101,3 @@ The test target covers core reconstitution math and seeded view-model behavior.
 ## Privacy and Safety
 
 SuppsAI is a tracking and education prototype, not medical advice. The app should keep the safety line visible in production copy: users should talk to a licensed clinician before starting or changing peptides, GLP-1s, hormones, or supplements.
-

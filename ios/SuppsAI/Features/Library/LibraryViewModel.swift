@@ -5,6 +5,7 @@ import Observation
 final class LibraryViewModel {
     private var appModel: AppViewModel
     var query = ""
+    var selectedKind: SupplementKind?
 
     init(appModel: AppViewModel) {
         self.appModel = appModel
@@ -15,8 +16,19 @@ final class LibraryViewModel {
     }
 
     var compounds: [ResearchCompound] {
-        guard !query.isEmpty else { return appModel.compounds }
-        return appModel.compounds.filter { $0.name.localizedCaseInsensitiveContains(query) }
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return appModel.compounds.filter { compound in
+            let matchesKind = selectedKind == nil || compound.kind == selectedKind
+            let matchesQuery = trimmedQuery.isEmpty
+                || compound.name.localizedCaseInsensitiveContains(trimmedQuery)
+                || compound.summary.localizedCaseInsensitiveContains(trimmedQuery)
+
+            return matchesKind && matchesQuery
+        }
+    }
+
+    func select(_ kind: SupplementKind?) {
+        selectedKind = kind
     }
 }
-

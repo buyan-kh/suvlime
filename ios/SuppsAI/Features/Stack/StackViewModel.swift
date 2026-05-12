@@ -25,5 +25,8 @@ final class StackViewModel {
         }
         return ReconstitutionMath.calculate(doseMcg: dose, vialMg: vial, bacWaterMl: bac)
     }
-}
 
+    func openStackBuilder() {
+        appModel.showStackBuilder()
+    }
+}

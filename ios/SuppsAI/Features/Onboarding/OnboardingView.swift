@@ -9,7 +9,7 @@ struct OnboardingView: View {
             case 0:
                 HeroStep { viewModel.next() }
             case 1:
-                SocialProofStep { viewModel.next() }
+                SocialProofStep(onBack: viewModel.back) { viewModel.next() }
             case 2:
                 TakingStep(viewModel: viewModel)
             case 3:
@@ -34,20 +34,21 @@ private struct HeroStep: View {
             VStack(alignment: .leading, spacing: 22) {
                 Spacer(minLength: 24)
                 ZStack(alignment: .topTrailing) {
-                    Text("Take\nyour stuff.\nGet gains.")
-                        .font(.boldDisplay(72))
-                        .lineSpacing(-14)
-                        .minimumScaleFactor(0.78)
-                        .overlay(alignment: .bottomLeading) {
-                            Text("Get gains.")
-                                .font(.boldDisplay(56))
-                                .foregroundStyle(BoldPalette.lime)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 2)
-                                .background(BoldPalette.ink)
-                                .rotationEffect(.degrees(-2))
-                                .offset(y: 1)
-                        }
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Take\nyour stuff.")
+                            .font(.boldDisplay(72))
+                            .lineSpacing(-14)
+                            .minimumScaleFactor(0.78)
+                        Text("Get gains.")
+                            .font(.boldDisplay(56))
+                            .foregroundStyle(BoldPalette.lime)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.74)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 2)
+                            .background(BoldPalette.ink)
+                            .rotationEffect(.degrees(-2))
+                    }
                     PillMascot(size: 136)
                         .rotationEffect(.degrees(10))
                         .offset(x: 28, y: 92)
@@ -77,6 +78,7 @@ private struct HeroStep: View {
 }
 
 private struct SocialProofStep: View {
+    var onBack: () -> Void
     var onNext: () -> Void
 
     private let quotes = [
@@ -88,7 +90,7 @@ private struct SocialProofStep: View {
     var body: some View {
         BoldScreen {
             VStack(alignment: .leading, spacing: 16) {
-                StepHeader(step: 2, total: 6)
+                StepHeader(step: 2, total: 6, onBack: onBack)
                 Sticker(text: "4.9 stars", color: BoldPalette.lime)
                 Text("100,000\nstackers\nlove it.")
                     .font(.boldDisplay(48))
@@ -143,7 +145,8 @@ private struct TakingStep: View {
             background: BoldPalette.paper,
             options: options,
             selected: viewModel.selectedTaking,
-            buttonTitle: "Keep going"
+            buttonTitle: "Keep going",
+            onBack: viewModel.back
         ) { item in
             if viewModel.selectedTaking.contains(item) {
                 viewModel.selectedTaking.remove(item)
@@ -177,7 +180,8 @@ private struct GoalStep: View {
             background: BoldPalette.sky,
             options: options,
             selected: viewModel.selectedGoals,
-            buttonTitle: "Next"
+            buttonTitle: "Next",
+            onBack: viewModel.back
         ) { item in
             if viewModel.selectedGoals.contains(item) {
                 viewModel.selectedGoals.remove(item)
@@ -196,7 +200,7 @@ private struct CommitmentStep: View {
     var body: some View {
         BoldScreen(background: BoldPalette.hot) {
             VStack(alignment: .leading, spacing: 18) {
-                StepHeader(step: 5, total: viewModel.totalSteps, buttonBackground: BoldPalette.paper)
+                StepHeader(step: 5, total: viewModel.totalSteps, buttonBackground: BoldPalette.paper, onBack: viewModel.back)
                 Text("How serious\nare you?")
                     .font(.boldDisplay(48))
                     .foregroundStyle(.white)
@@ -299,13 +303,14 @@ private struct ChoiceStep: View {
     var options: [(String, String)]
     var selected: Set<String>
     var buttonTitle: String
+    var onBack: () -> Void
     var onSelect: (String) -> Void
     var onNext: () -> Void
 
     var body: some View {
         BoldScreen(background: background) {
             VStack(alignment: .leading, spacing: 18) {
-                StepHeader(step: step, total: total)
+                StepHeader(step: step, total: total, onBack: onBack)
                 Text(title)
                     .font(.boldDisplay(48))
                     .lineSpacing(-8)
@@ -334,15 +339,25 @@ struct StepHeader: View {
     var step: Int
     var total: Int
     var buttonBackground: Color = .white
+    var onBack: (() -> Void)?
 
     var body: some View {
         HStack {
-            Image(systemName: "chevron.left")
-                .font(.system(size: 16, weight: .black))
-                .frame(width: 44, height: 44)
-                .background(buttonBackground)
-                .clipShape(Circle())
-                .overlay(Circle().stroke(BoldPalette.ink, lineWidth: 2.5))
+            Button {
+                onBack?()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 16, weight: .black))
+                    .foregroundStyle(BoldPalette.ink)
+                    .frame(width: 44, height: 44)
+                    .background(buttonBackground)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(BoldPalette.ink, lineWidth: 2.5))
+            }
+            .buttonStyle(.plain)
+            .opacity(onBack == nil ? 0.35 : 1)
+            .disabled(onBack == nil)
+            .accessibilityLabel("Back")
             Spacer()
             Text("\(step) / \(total)")
                 .font(.boldBody(13))
@@ -350,11 +365,11 @@ struct StepHeader: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 7)
                 .background(BoldPalette.ink, in: Capsule())
+                .accessibilityLabel("Step \(step) of \(total)")
             Spacer()
             Color.clear.frame(width: 44, height: 44)
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Step \(step) of \(total)")
+        .accessibilityElement(children: .contain)
     }
 }
 

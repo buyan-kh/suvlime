@@ -10,8 +10,9 @@ final class OnboardingViewModel {
     var seriousness = 9.0
     var showingPaywall = false
 
-    init(appModel: AppViewModel) {
+    init(appModel: AppViewModel, initialStep: OnboardingStep = .hero) {
         self.appModel = appModel
+        self.step = initialStep.rawValue
     }
 
     var totalSteps: Int { 6 }
@@ -19,6 +20,7 @@ final class OnboardingViewModel {
     func next() {
         if step < totalSteps - 1 {
             step += 1
+            syncStep()
         } else {
             showingPaywall = true
         }
@@ -26,10 +28,14 @@ final class OnboardingViewModel {
 
     func back() {
         step = max(0, step - 1)
+        syncStep()
     }
 
     func finish() {
         appModel.completeOnboarding()
     }
-}
 
+    private func syncStep() {
+        appModel.onboardingStep = OnboardingStep(rawValue: step) ?? .hero
+    }
+}

@@ -50,7 +50,9 @@ struct ProgressView: View {
                         }
                     }
 
-                    BoldCard(background: BoldPalette.sky) {
+                    Button {
+                        viewModel.startCheckIn()
+                    } label: {
                         HStack(spacing: 12) {
                             Image(systemName: "note.text")
                                 .font(.boldDisplay(34))
@@ -70,6 +72,22 @@ struct ProgressView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         }
                     }
+                    .buttonStyle(.plain)
+                    .padding(16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .fill(BoldPalette.sky)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(BoldPalette.ink, lineWidth: 3)
+                    )
+                    .offset(x: -4, y: -4)
+                    .background(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .fill(BoldPalette.ink)
+                    )
+                    .accessibilityLabel("Start weekly check-in")
                 }
                 .padding(20)
                 .padding(.bottom, 20)

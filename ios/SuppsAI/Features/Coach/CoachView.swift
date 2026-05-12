@@ -57,8 +57,8 @@ struct CoachView: View {
                     TextField("Type a question...", text: $viewModel.draft)
                         .font(.system(size: 14, weight: .bold, design: .rounded))
                     Button {
-                        guard !viewModel.draft.isEmpty else { return }
-                        viewModel.sendQuickQuestion(viewModel.draft)
+                        let question = viewModel.draft
+                        viewModel.sendQuickQuestion(question)
                         viewModel.draft = ""
                     } label: {
                         Image(systemName: "arrow.up")

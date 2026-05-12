@@ -8,7 +8,8 @@ struct ContentView: View {
             if viewModel.hasCompletedOnboarding {
                 MainTabView(viewModel: viewModel)
             } else {
-                OnboardingView(viewModel: OnboardingViewModel(appModel: viewModel))
+                OnboardingView(viewModel: OnboardingViewModel(appModel: viewModel, initialStep: viewModel.onboardingStep))
+                    .id(viewModel.onboardingRouteVersion)
             }
         }
         .tint(BoldPalette.lime)

@@ -1,12 +1,43 @@
 import Foundation
 import SwiftUI
 
-enum AppTab: Hashable {
+enum AppTab: String, Hashable {
     case today
     case stack
     case coach
     case library
     case progress
+}
+
+enum OnboardingStep: Int {
+    case hero = 0
+    case socialProof = 1
+    case taking = 2
+    case goal = 3
+    case commitment = 4
+    case reveal = 5
+}
+
+enum AppRoute: Equatable {
+    case goal
+    case tab(AppTab)
+
+    init?(url: URL) {
+        let components = url.pathComponents.filter { $0 != "/" }
+        let target = url.host ?? components.first
+
+        if target == "goal" {
+            self = .goal
+            return
+        }
+
+        if let target, let tab = AppTab(rawValue: target) {
+            self = .tab(tab)
+            return
+        }
+
+        return nil
+    }
 }
 
 enum SupplementKind: String, CaseIterable, Identifiable {
@@ -134,4 +165,3 @@ struct SuppsSeed {
     var messages: [ChatMessage]
     var metrics: [ProgressMetric]
 }
-

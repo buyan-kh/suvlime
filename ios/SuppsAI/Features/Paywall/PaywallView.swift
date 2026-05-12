@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PaywallView: View {
     var onClose: () -> Void
+    @State private var selectedPlan: Plan = .yearly
 
     private let perks = [
         "Unlimited AI coach",
@@ -11,6 +12,20 @@ struct PaywallView: View {
         "Lab tracker",
         "Cycle reminders"
     ]
+
+    private enum Plan: String, CaseIterable {
+        case monthly = "Monthly"
+        case yearly = "Yearly"
+        case weekly = "Weekly"
+
+        var subtitle: String {
+            switch self {
+            case .monthly: "$14.99/mo"
+            case .yearly: "$79.99/yr - just $1.53/week"
+            case .weekly: "$9.99/wk after trial"
+            }
+        }
+    }
 
     var body: some View {
         BoldScreen(background: BoldPalette.ink) {
@@ -57,9 +72,11 @@ struct PaywallView: View {
                 }
 
                 VStack(spacing: 12) {
-                    PlanRow(title: "Monthly", subtitle: "$14.99/mo", selected: false)
-                    PlanRow(title: "Yearly", subtitle: "$79.99/yr - just $1.53/week", selected: true)
-                    PlanRow(title: "Weekly", subtitle: "$9.99/wk after trial", selected: false)
+                    ForEach(Plan.allCases, id: \.self) { plan in
+                        PlanRow(title: plan.rawValue, subtitle: plan.subtitle, selected: selectedPlan == plan) {
+                            selectedPlan = plan
+                        }
+                    }
                 }
                 .padding(.top, 4)
                 Spacer()
@@ -85,31 +102,36 @@ private struct PlanRow: View {
     var title: String
     var subtitle: String
     var selected: Bool
+    var action: () -> Void
 
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title).font(.boldBody(selected ? 17 : 14))
-                Text(subtitle).font(.system(size: 12, weight: .bold, design: .rounded))
+        Button(action: action) {
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(title).font(.boldBody(selected ? 17 : 14))
+                    Text(subtitle).font(.system(size: 12, weight: .bold, design: .rounded))
+                }
+                Spacer()
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 24, weight: .black))
             }
-            Spacer()
-            Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                .font(.system(size: 24, weight: .black))
-        }
-        .foregroundStyle(selected ? BoldPalette.ink : .white)
-        .padding(16)
-        .background(selected ? BoldPalette.lime : Color.white.opacity(0.08))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(selected ? BoldPalette.lime : Color.white.opacity(0.14), lineWidth: selected ? 3 : 2.5)
-        )
-        .overlay(alignment: .topTrailing) {
-            if selected {
-                Sticker(text: "Best deal", color: BoldPalette.hot, textColor: .white, rotation: 4, size: .small)
-                    .offset(x: -12, y: -17)
+            .foregroundStyle(selected ? BoldPalette.ink : .white)
+            .padding(16)
+            .background(selected ? BoldPalette.lime : Color.white.opacity(0.08))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(selected ? BoldPalette.lime : Color.white.opacity(0.14), lineWidth: selected ? 3 : 2.5)
+            )
+            .overlay(alignment: .topTrailing) {
+                if selected && title == "Yearly" {
+                    Sticker(text: "Best deal", color: BoldPalette.hot, textColor: .white, rotation: 4, size: .small)
+                        .offset(x: -12, y: -17)
+                }
             }
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("\(title), \(subtitle)")
     }
 }
 

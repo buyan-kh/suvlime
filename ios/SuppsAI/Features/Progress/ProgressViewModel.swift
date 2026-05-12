@@ -13,5 +13,8 @@ final class ProgressViewModel {
     var score: Int { appModel.currentScore }
     var metrics: [ProgressMetric] { appModel.metrics }
     var recap: String { "Your energy jumped +18% since you added NMN. Keep going." }
-}
 
+    func startCheckIn() {
+        appModel.showCheckIn()
+    }
+}

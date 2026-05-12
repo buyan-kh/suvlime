@@ -7,7 +7,9 @@ struct SuppsAIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: appModel)
+                .onOpenURL { url in
+                    appModel.open(url)
+                }
         }
     }
 }
-

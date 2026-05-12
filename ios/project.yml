@@ -40,8 +40,6 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen:
           UIColorName: AccentColor
-        UIApplicationSceneManifest:
-          UIApplicationSupportsMultipleScenes: false
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UISupportedInterfaceOrientations~ipad:
@@ -49,6 +47,10 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
+        CFBundleURLTypes:
+          - CFBundleURLName: com.suvlime.suppsai
+            CFBundleURLSchemes:
+              - suppsai
         ITSAppUsesNonExemptEncryption: false
         NSUserNotificationsUsageDescription: "SuppsAI uses notifications to remind you when a scheduled dose or supplement is due."
     settings:
