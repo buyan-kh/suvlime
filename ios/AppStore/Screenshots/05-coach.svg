@@ -1,0 +1,17 @@
+<svg width="1290" height="2796" viewBox="0 0 1290 2796" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1290" height="2796" fill="#F5F1E8"/>
+  <rect x="96" y="150" width="180" height="112" rx="56" fill="#FF5A36" stroke="#0A0A0A" stroke-width="10"/>
+  <rect x="96" y="150" width="90" height="112" rx="56" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/>
+  <text x="320" y="220" font-family="Arial Black, Arial" font-size="38" fill="#0A0A0A">COACH</text>
+  <text x="320" y="320" font-family="Arial Black, Arial" font-size="82" fill="#0A0A0A">Ask anything.</text>
+  <rect x="510" y="560" width="680" height="160" rx="48" fill="#0A0A0A"/>
+  <text x="560" y="655" font-family="Arial" font-size="42" font-weight="700" fill="#FFFFFF">What should I stack with BPC-157?</text>
+  <rect x="96" y="820" width="810" height="360" rx="48" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/>
+  <text x="146" y="930" font-family="Arial" font-size="42" font-weight="700" fill="#0A0A0A">Pair it with TB-500. They work better together for recovery.</text>
+  <rect x="146" y="1030" width="710" height="96" rx="28" fill="#CFFF50" stroke="#0A0A0A" stroke-width="8"/>
+  <text x="190" y="1092" font-family="Arial Black, Arial" font-size="34" fill="#0A0A0A">Add TB-500 to stack</text>
+  <rect x="96" y="2200" width="1098" height="150" rx="48" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/>
+  <text x="150" y="2292" font-family="Arial" font-size="42" font-weight="700" fill="#777">Type a question...</text>
+  <rect x="1050" y="2228" width="94" height="94" rx="28" fill="#CFFF50" stroke="#0A0A0A" stroke-width="8"/>
+  <text x="1080" y="2294" font-family="Arial Black, Arial" font-size="48" fill="#0A0A0A">↑</text>
+</svg>

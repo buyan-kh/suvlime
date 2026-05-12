@@ -1,0 +1,21 @@
+<svg width="1290" height="2796" viewBox="0 0 1290 2796" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1290" height="2796" fill="#F5F1E8"/>
+  <text x="96" y="260" font-family="Arial" font-size="44" font-weight="700" fill="#666">Tuesday - Day 14</text>
+  <text x="96" y="370" font-family="Arial Black, Arial" font-size="110" fill="#0A0A0A">Hey Alex</text>
+  <rect x="840" y="180" width="300" height="96" fill="#FF5A36" stroke="#0A0A0A" stroke-width="9" transform="rotate(6 840 180)"/>
+  <text x="888" y="244" font-family="Arial Black, Arial" font-size="30" fill="#FFFFFF">14 DAY STREAK</text>
+  <rect x="96" y="500" width="1098" height="290" rx="56" fill="#0A0A0A"/>
+  <text x="150" y="610" font-family="Arial Black, Arial" font-size="38" fill="#CFFF50">TODAY</text>
+  <text x="150" y="708" font-family="Arial Black, Arial" font-size="90" fill="#FFFFFF">3 of 5 done</text>
+  <circle cx="1038" cy="645" r="90" fill="none" stroke="#333" stroke-width="26"/>
+  <path d="M1038 555a90 90 0 1 1-78 135" fill="none" stroke="#CFFF50" stroke-width="26" stroke-linecap="round"/>
+  <g font-family="Arial Black, Arial" font-size="48" fill="#0A0A0A">
+    <rect x="96" y="880" width="1098" height="172" rx="40" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="260" y="980">BPC-157</text>
+    <rect x="96" y="1090" width="1098" height="172" rx="40" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="260" y="1190">Semaglutide</text>
+    <rect x="96" y="1300" width="1098" height="172" rx="40" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="260" y="1400">Magnesium</text>
+    <rect x="96" y="1510" width="1098" height="172" rx="40" fill="#CFFF50" stroke="#0A0A0A" stroke-width="10"/><text x="260" y="1610">NMN</text>
+    <rect x="96" y="1720" width="1098" height="172" rx="40" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="260" y="1820">Creatine</text>
+  </g>
+  <rect x="96" y="2020" width="1098" height="220" rx="44" fill="#FF5A36" stroke="#0A0A0A" stroke-width="10"/>
+  <text x="150" y="2148" font-family="Arial Black, Arial" font-size="48" fill="#FFFFFF">You sleep 32 min longer when magnesium lands before 9 PM.</text>
+</svg>

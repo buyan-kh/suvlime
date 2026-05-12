@@ -1,0 +1,22 @@
+<svg width="1290" height="2796" viewBox="0 0 1290 2796" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1290" height="2796" fill="#CFFF50"/>
+  <text x="96" y="420" font-family="Arial Black, Arial" font-size="210" font-weight="900" fill="#0A0A0A">Take</text>
+  <text x="96" y="620" font-family="Arial Black, Arial" font-size="210" font-weight="900" fill="#0A0A0A">your stuff.</text>
+  <rect x="96" y="710" width="760" height="190" fill="#0A0A0A" transform="rotate(-2 96 710)"/>
+  <text x="128" y="850" font-family="Arial Black, Arial" font-size="142" font-weight="900" fill="#CFFF50">Get gains.</text>
+  <rect x="840" y="520" width="300" height="180" rx="90" fill="#FF5A36" stroke="#0A0A0A" stroke-width="14"/>
+  <path d="M990 520v180" stroke="#0A0A0A" stroke-width="14"/>
+  <rect x="840" y="520" width="150" height="180" rx="90" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="14"/>
+  <circle cx="905" cy="600" r="14" fill="#0A0A0A"/>
+  <circle cx="1050" cy="600" r="14" fill="#0A0A0A"/>
+  <path d="M948 646q42 42 84 0" fill="none" stroke="#0A0A0A" stroke-width="11" stroke-linecap="round"/>
+  <text x="96" y="1050" font-family="Arial" font-size="54" font-weight="700" fill="#0A0A0A">The dumb-simple app for peptides, GLP-1s, and supplements.</text>
+  <circle cx="126" cy="2130" r="46" fill="#FF5A36" stroke="#0A0A0A" stroke-width="10"/>
+  <circle cx="196" cy="2130" r="46" fill="#7FB8FF" stroke="#0A0A0A" stroke-width="10"/>
+  <circle cx="266" cy="2130" r="46" fill="#FFD86B" stroke="#0A0A0A" stroke-width="10"/>
+  <circle cx="336" cy="2130" r="46" fill="#FFB8D9" stroke="#0A0A0A" stroke-width="10"/>
+  <text x="420" y="2114" font-family="Arial Black, Arial" font-size="40" fill="#0A0A0A">100,000+ stackers</text>
+  <text x="420" y="2170" font-family="Arial" font-size="38" font-weight="700" fill="#0A0A0A">4.9 on App Store</text>
+  <rect x="96" y="2320" width="1098" height="200" rx="48" fill="#0A0A0A"/>
+  <text x="472" y="2448" font-family="Arial Black, Arial" font-size="70" fill="#FFFFFF">Let’s go →</text>
+</svg>

@@ -1,86 +1,97 @@
-# PepTracker (iOS)
+# SuppsAI iOS
 
-Native SwiftUI peptide tracking app — log doses, manage protocols, track vials, and calculate reconstitution math.
+Native SwiftUI implementation of the **BOLD 2026** SuppsAI design handoff. The app replaces the old PepTracker build with a bright, high-contrast supplement and peptide coach: plain copy, chunky sticker UI, obvious full-width actions, seeded data, and a complete shallow app surface.
 
 ## Requirements
 
-- **Xcode 15.3+**
-- **iOS 17.0+** (uses SwiftData, the new `@Observable` macro, Charts, and `onChange(of:_:)`)
-- macOS 13.5+ to build
+- Xcode 15.3+
+- iOS 17.0+
+- XcodeGen
 
-## Generating the Xcode project
-
-The repo ships source files plus a `project.yml` for [XcodeGen](https://github.com/yonaskolb/XcodeGen). XcodeGen is the recommended way to keep the `.xcodeproj` reproducible and out of git.
+## Setup
 
 ```bash
-brew install xcodegen
 cd ios
 xcodegen generate
-open PepTracker.xcodeproj
+open SuppsAI.xcodeproj
 ```
 
-If you'd rather not use XcodeGen, create a new "App" project in Xcode (SwiftUI + SwiftData), then drag the `PepTracker/` folder into the project and remove the auto-generated `ContentView.swift` / `*App.swift` files Xcode creates.
+Then build the `SuppsAI` scheme for any iOS 17+ simulator.
+
+## API Key Placeholders
+
+The current app is local and preview-safe. When live services are added, replace the placeholders in `SuppsAI/Core/Services/APIPlaceholders.swift`:
+
+```swift
+SUPPSAI_COACH_API_KEY
+SUPPSAI_RESEARCH_API_KEY
+SUPPSAI_ANALYTICS_KEY
+```
+
+Do not commit real API keys. Use `.xcconfig`, environment injection, or a secrets provider before shipping.
 
 ## Architecture
 
-```
-PepTracker/
-├── App/                          @main entry, ModelContainer setup
-├── Models/                       SwiftData @Model types
-│   ├── Peptide.swift
-│   ├── DosingProtocol.swift
-│   ├── DoseLog.swift
-│   └── InjectionSite.swift       enums for sites & administration routes
-├── Services/                     Pure logic, easy to unit-test
-│   ├── ReconstitutionCalculator  vial mg + BAC water → units / mL
-│   ├── ScheduleEngine            "is this protocol due on date X?"
-│   ├── NotificationManager       UNUserNotifications integration
-│   ├── Formatters                centralized dose/date formatting
-│   └── SampleData                seed data for previews & tests
-├── Views/
-│   ├── ContentView               TabView root
-│   ├── Today/                    dashboard + log dose sheet
-│   ├── Library/                  peptide list, detail, editor, protocol editor
-│   ├── Calculator/               reconstitution calculator
-│   ├── Stats/                    Charts: daily activity + site rotation
-│   ├── Settings/                 notifications, units, data reset
-│   └── Components/               shared UI (badges, cards, empty state)
-└── Resources/                    Info.plist, asset catalogs
-
-PepTrackerTests/                  XCTest unit tests
+```text
+SuppsAI/
+├── App/                    App entry, root routing, shared AppViewModel
+├── Core/
+│   ├── DesignSystem/       BOLD palette, slab buttons, stickers, cards
+│   ├── MockData/           Seeded data for instant previews
+│   ├── Models/             Value models for stack, doses, chat, research, progress
+│   └── Services/           Reconstitution math and API key placeholders
+├── Features/
+│   ├── Onboarding/         3-second pitch, plain-language questions, reveal
+│   ├── Paywall/            Trial conversion screen
+│   ├── Today/              Dose schedule, streak, AI tip
+│   ├── Stack/              Current stack, filters, reconstitution result
+│   ├── Library/            Compound research browser
+│   ├── Coach/              Stack-aware AI chat surface
+│   └── Progress/           SuppsAI score, recap, metrics
+└── Resources/              Info.plist and asset catalogs
 ```
 
-### Design choices
+The app uses MVVM with `@Observable` view models. `AppViewModel` owns the seeded app state and feature-specific view models expose only the data/actions each screen needs.
 
-- **SwiftData over Core Data.** Lightweight, Swift-native, fast to iterate. The store is local-only; no network calls, no third-party SDKs.
-- **Pure-function services.** `ReconstitutionCalculator` and `ScheduleEngine` take all inputs explicitly — no SwiftData dependency, no time injection from `Date.now` inside the math — so they are deterministic and unit-testable.
-- **Apple HIG-compliant UI.** `.insetGrouped` lists, native `Form` for editors, segmented controls for ranges, system colors and SF Symbols throughout. The accent color is the only brand color and is defined once in the asset catalog.
-- **Accessibility.** Every icon-only button has an `.accessibilityLabel`. Progress and status badges read meaningful values to VoiceOver. Dynamic Type is preserved by using semantic font styles.
-- **Empty states with clear actions** instead of blank screens.
-- **Notifications are reschedulable, not perpetual.** We schedule the next 30 days of `UNCalendarNotificationTrigger`s per protocol and refresh whenever the protocol changes — easier to reason about than recurring triggers and avoids drifting reminders when a schedule changes.
-- **Health & safety guardrails.** A disclaimer in Settings makes clear this is a record-keeping tool, not medical advice.
+## Design Translation
 
-## Math
+The handoff target was `SuppsAI.html`, specifically the BOLD version:
 
-Reconstitution uses the standard pharmacy formula. Given a `vialMg` peptide reconstituted with `bacWaterMl` of bacteriostatic water:
+- Massive value prop: “Take your stuff. Get gains.”
+- Third-grade copy: direct questions and short labels.
+- Obvious actions: full-width slab buttons, 64pt+ tap targets.
+- One loud color per major moment with black borders and hard shadows.
+- Complete app surface: onboarding, paywall, Today, Stack, Library, Coach, Progress.
 
-```
-concentration_mcg_per_ml = (vialMg × 1000) / bacWaterMl
-volume_ml                = dose_mcg / concentration_mcg_per_ml
-units_on_U100_syringe    = volume_ml × 100
-```
+## Previews
 
-Worked example: a 5 mg BPC-157 vial reconstituted with 2 mL BAC water gives 2500 mcg/mL. A 250 mcg dose is 0.1 mL — **10 units** on a U-100 insulin syringe.
+Every major view has a SwiftUI preview:
 
-## Running tests
+- `ContentView`
+- `OnboardingView`
+- `PaywallView`
+- `TodayView`
+- `StackView`
+- `LibraryView`
+- `CoachView`
+- `ProgressView`
+
+All previews use `MockSuppsData.seed`, so they render without accounts, network calls, or setup.
+
+## Tests
 
 ```bash
+cd ios
+xcodegen generate
 xcodebuild test \
-  -project PepTracker.xcodeproj \
-  -scheme PepTracker \
+  -project SuppsAI.xcodeproj \
+  -scheme SuppsAI \
   -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
-## Privacy
+The test target covers core reconstitution math and seeded view-model behavior.
 
-PepTracker stores all data on-device using SwiftData. No analytics, no remote sync, no third-party SDKs.
+## Privacy and Safety
+
+SuppsAI is a tracking and education prototype, not medical advice. The app should keep the safety line visible in production copy: users should talk to a licensed clinician before starting or changing peptides, GLP-1s, hormones, or supplements.
+

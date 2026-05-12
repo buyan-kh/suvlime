@@ -1,0 +1,18 @@
+<svg width="1290" height="2796" viewBox="0 0 1290 2796" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1290" height="2796" fill="#F5F1E8"/>
+  <rect x="520" y="160" width="250" height="72" rx="36" fill="#0A0A0A"/>
+  <text x="582" y="210" font-family="Arial Black, Arial" font-size="34" fill="#FFFFFF">3 / 6</text>
+  <text x="96" y="430" font-family="Arial Black, Arial" font-size="132" fill="#0A0A0A">What do</text>
+  <text x="96" y="560" font-family="Arial Black, Arial" font-size="132" fill="#0A0A0A">you take?</text>
+  <text x="96" y="650" font-family="Arial" font-size="48" font-weight="700" fill="#0A0A0A">Pick all that match. We’ll do the math.</text>
+  <g font-family="Arial Black, Arial" font-size="54" fill="#0A0A0A">
+    <rect x="96" y="780" width="520" height="330" rx="48" fill="#CFFF50" stroke="#0A0A0A" stroke-width="12"/><text x="150" y="980">Peptides</text>
+    <rect x="674" y="780" width="520" height="330" rx="48" fill="#CFFF50" stroke="#0A0A0A" stroke-width="12"/><text x="728" y="980">Pills</text>
+    <rect x="96" y="1168" width="520" height="330" rx="48" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="12"/><text x="150" y="1368">GLP-1s</text>
+    <rect x="674" y="1168" width="520" height="330" rx="48" fill="#CFFF50" stroke="#0A0A0A" stroke-width="12"/><text x="728" y="1368">Brain stuff</text>
+    <rect x="96" y="1556" width="520" height="330" rx="48" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="12"/><text x="150" y="1756">Hormones</text>
+    <rect x="674" y="1556" width="520" height="330" rx="48" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="12"/><text x="728" y="1756">Vitamins</text>
+  </g>
+  <rect x="96" y="2320" width="1098" height="200" rx="48" fill="#CFFF50" stroke="#0A0A0A" stroke-width="12"/>
+  <text x="405" y="2448" font-family="Arial Black, Arial" font-size="70" fill="#0A0A0A">Keep going →</text>
+</svg>
