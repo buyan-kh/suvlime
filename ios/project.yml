@@ -1,6 +1,5 @@
-# XcodeGen spec — run `xcodegen generate` from this directory to produce PepTracker.xcodeproj.
-# https://github.com/yonaskolb/XcodeGen
-name: PepTracker
+# XcodeGen spec. Run `xcodegen generate` from this directory to create SuppsAI.xcodeproj.
+name: SuppsAI
 options:
   bundleIdPrefix: com.suvlime
   deploymentTarget:
@@ -23,20 +22,20 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
 
 targets:
-  PepTracker:
+  SuppsAI:
     type: application
     platform: iOS
     sources:
-      - path: PepTracker
+      - path: SuppsAI
         excludes:
           - "**/.DS_Store"
     resources:
-      - PepTracker/Resources/Assets.xcassets
-      - PepTracker/Preview Content/Preview Assets.xcassets
+      - SuppsAI/Resources/Assets.xcassets
+      - SuppsAI/Preview Content/Preview Assets.xcassets
     info:
-      path: PepTracker/Resources/Info.plist
+      path: SuppsAI/Resources/Info.plist
       properties:
-        CFBundleDisplayName: PepTracker
+        CFBundleDisplayName: SuppsAI
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen:
@@ -51,25 +50,26 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
         ITSAppUsesNonExemptEncryption: false
-        NSUserNotificationsUsageDescription: "PepTracker uses notifications to remind you when a scheduled dose is due."
+        NSUserNotificationsUsageDescription: "SuppsAI uses notifications to remind you when a scheduled dose or supplement is due."
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.suvlime.peptracker
+        PRODUCT_BUNDLE_IDENTIFIER: com.suvlime.suppsai
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-        DEVELOPMENT_ASSET_PATHS: "\"PepTracker/Preview Content\""
+        DEVELOPMENT_ASSET_PATHS: "\"SuppsAI/Preview Content\""
         ENABLE_PREVIEWS: YES
         GENERATE_INFOPLIST_FILE: NO
         SUPPORTS_MACCATALYST: NO
 
-  PepTrackerTests:
+  SuppsAITests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: PepTrackerTests
+      - path: SuppsAITests
     dependencies:
-      - target: PepTracker
+      - target: SuppsAI
     settings:
       base:
         BUNDLE_LOADER: $(TEST_HOST)
-        TEST_HOST: $(BUILT_PRODUCTS_DIR)/PepTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PepTracker
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/SuppsAI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SuppsAI

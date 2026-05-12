@@ -1,0 +1,16 @@
+<svg width="1290" height="2796" viewBox="0 0 1290 2796" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1290" height="2796" fill="#F5F1E8"/>
+  <text x="96" y="310" font-family="Arial Black, Arial" font-size="118" fill="#0A0A0A">Mix the</text>
+  <text x="96" y="430" font-family="Arial Black, Arial" font-size="118" fill="#0A0A0A">vial.</text>
+  <text x="96" y="525" font-family="Arial" font-size="46" font-weight="700" fill="#0A0A0A">Tell us 2 things. We’ll tell you ticks.</text>
+  <g font-family="Arial Black, Arial" fill="#0A0A0A">
+    <rect x="96" y="680" width="1098" height="220" rx="42" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="150" y="820" font-size="92">5 mg</text>
+    <rect x="96" y="970" width="1098" height="220" rx="42" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="150" y="1110" font-size="92">2 mL</text>
+    <rect x="96" y="1260" width="1098" height="220" rx="42" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="10"/><text x="150" y="1400" font-size="92">250 mcg</text>
+  </g>
+  <rect x="96" y="1640" width="1098" height="560" rx="58" fill="#0A0A0A"/>
+  <text x="150" y="1760" font-family="Arial Black, Arial" font-size="42" fill="#CFFF50">DRAW THIS MUCH</text>
+  <text x="150" y="1980" font-family="Arial Black, Arial" font-size="230" fill="#CFFF50">10</text>
+  <text x="450" y="1958" font-family="Arial Black, Arial" font-size="74" fill="#FFFFFF">ticks</text>
+  <text x="150" y="2080" font-family="Arial" font-size="44" font-weight="700" fill="#CCCCCC">on a U-100 insulin syringe</text>
+</svg>
